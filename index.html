@@ -1,45 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-            integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-            crossorigin="anonymous" />
 
-    <title>Floatin Buttom</title>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+                integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+                crossorigin="anonymous" />
+
+        <title>Floatin Buttom</title>
 
         <style>
-        
-                .container{
-                       height: 600px;
-                       border: 1px solid purple; 
-                       margin-bottom: 200px;
-                       position: relative;
-                }
-                .icon{
-                    font-size: 2.5em;
-                    position: fixed;
-                }
-                .footer{
-                     height: 770px;
-                     border: 1px solid red;   
+                .container {
+                        height: 600px;
+                        border: 1px solid purple;
+                        margin-bottom: 200px;
+                        position: relative;
                 }
 
+                .icon {
+                        font-size: 2.5em;
+                        position: fixed;
+                }
+
+                .footer {
+                        height: 770px;
+                        border: 1px solid red;
+                }
         </style>
 
 </head>
+
 <body>
+        <div class="container">
+                <i class="fas fa-plus-circle icon"></i>
+        </div>
+        <footer class="footer"></footer>
+        <script>
+                const $container = document.querySelector('.container')
+                const $icon = document.querySelector('.icon')
+                const observerOptions = {
+                        threshold: [.4, .7]
+                }
+                const cb = (entries, observer) => {
+                        if (entries[0].isIntersecting)
+                                $icon.removeAttribute('style')
+                        else
+                                $icon.style.top = `${entries[0].target.clientHeight - $icon.clientHeight}px`;
+                }
 
 
-            <div class="container">
-                    <i class="fas fa-plus-circle icon"></i>
-            </div>
-            <footer class="footer">
+                const observer = new IntersectionObserver(cb)
 
-
-            </footer>
+                observer.observe($container)
+        </script>
 </body>
+
 </html>
